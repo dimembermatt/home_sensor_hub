@@ -1,0 +1,38 @@
+{
+    "description": {
+        "summary": "This file describes the configuration of various aspects of the home sensor hub.",
+        "sensors": "This section defines the sensors that are connected to the home sensor hub. Each sensor has a (1) identifiable name with an associated API implemented in the Home_Sensor_Hub class, a (2) sampling rate that defines the sensor time resolution, and (3) a list of signals and their expected measurement output type",
+        "database": "This section defines the backend database for which data should be stashed and can be retrieved by the dashboard.",
+        "dashboard": "This section defines the frontend interface for viewing and interacting with the home sensor hub data. It is implemented in the Home_Sensor_Hub class."
+    },
+    "sensors": {
+        "SGP30": {
+            "sample_rate_hz": 1,
+            "signals": {
+                "eCO2": "float",
+                "TVOC": "float"
+            }
+        },
+        "APDS9960": {
+            "sample_rate_hz": 1,
+            "signals": {
+                "proximity": "int",
+                "gesture": "int",
+                "color": ["int", "int", "int", "int"]
+            }
+        },
+        "AHTx0": {
+            "sample_rate_hz": 1,
+            "signals": {
+                "temperature": "float",
+                "humidity": "float"
+            }
+        }
+    },
+    "database": {
+        "implementation": "couchdb"
+    },
+    "dashboard": {
+        "implementation": "grafana"
+    }
+}
