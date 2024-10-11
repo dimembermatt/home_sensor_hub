@@ -8,23 +8,22 @@
 @copyright: Copyright (c) 2024.
 """
 
-from sensor import Sensor
+from sensor.sensor import Sensor
 from adafruit_sgp30 import Adafruit_SGP30
 
 class SGP30(Sensor):
     def __init__(self, i2c_bus) -> None:
         super().__init__()
         self.instance = Adafruit_SGP30(i2c_bus)
-        self.datapoints = {
-            "eCO2": [None, None],
-            "TVOC": [None, None]
-        }
+        self.datapoints["fields"]["eCO2"] = None
+        self.datapoints["fields"]["TVOC"] = None
+
         
     def sample_sensor(self) -> None:
         super().sample_sensor()
 
         eco2, tvoc = self.instance.iaq_measure()
-        self.datapoints["eCO2"] = [self.sample_time, eco2]
-        self.datapoints["TVOC"] = [self.sample_time, tvoc]
+        self.datapoints["fields"]["eCO2"] = eco2
+        self.datapoints["fields"]["TVOC"] = tvoc
 
-        print(f"eCO2: {eco2:.3f}\tTVOC: {tvoc:.3f}")
+        print(f"{self.datapoints['timestamp']}\teCO2: {eco2:.3f}\tTVOC: {tvoc:.3f}")

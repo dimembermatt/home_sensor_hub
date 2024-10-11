@@ -8,7 +8,7 @@
 @copyright: Copyright (c) 2024.
 """
 
-import Sensor
+from sensor.sensor import Sensor
 from adafruit_apds9960.apds9960 import APDS9960 as _APDS9960
 
 class APDS9960(Sensor):
@@ -20,11 +20,9 @@ class APDS9960(Sensor):
         self.instance.enable_color = True
         # TODO: support for rotation
         # self.instance.rotation = 270
-        self.datapoints = {
-            "proximity": [None, None],
-            "gesture": [None, None],
-            "color": [None, None]
-        }
+        self.datapoints["fields"]["proximity"] = None
+        self.datapoints["fields"]["gesture"] = None
+        self.datapoints["fields"]["color"] = None
 
     def sample_sensor(self) -> None:
         super().sample_sensor()
@@ -36,8 +34,9 @@ class APDS9960(Sensor):
         if self.instance.color_data_ready:
             r, g, b, c = self.instance.color_data
             color = [r, g, b, c]
-        self.datapoints["proximity"] = [self.sample_time, proximity]
-        self.datapoints["gesture"] = [self.sample_time, gesture]
-        self.datapoints["color"] = [self.sample_time, color]
+            
+        self.datapoints["fields"]["proximity"] = proximity
+        self.datapoints["fields"]["gesture"] = gesture
+        self.datapoints["fields"]["color"] = color
 
-        print(f"Proximity: {proximity}\tGesture: {gesture}\tColor: {color}")
+        print(f"{self.datapoints['timestamp']}\tProximity: {proximity}\tGesture: {gesture}\tColor: {color}")

@@ -26,7 +26,7 @@ if __name__ == "__main__":
     hub = Home_Sensor_Hub()
 
     # TODO: look for keyboard interrupt to quit gracefully
-    while True:
-        time.sleep(1)
+    # while True:
+    #     time.sleep(1)
 
     hub.quit()

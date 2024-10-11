@@ -8,18 +8,20 @@
 """
 
 from abc import ABC, abstractmethod
-import time
+from datetime import datetime, timezone
 
 class Sensor(ABC):
     def __init__(self) -> None:
         super().__init__()
-        self.datapoints = {}
+        self.datapoints = {
+            "timestamp": None,
+            "tags": {},
+            "fields": {}
+        }
 
     @abstractmethod
     def sample_sensor(self) -> None:
-        self.sample_time = time.time()
+        self.datapoints["timestamp"] = datetime.now(timezone.utc)
 
-    def get_datapoint(self, name: str):
-        if name in self.datapoints:
-            return self.datapoints[name]
-        return [None, None]
+    def get_datapoint(self):
+        return self.datapoints.values()

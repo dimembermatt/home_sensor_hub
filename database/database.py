@@ -12,15 +12,16 @@ class Database(ABC):
     def __init__(self) -> None:
         super().__init__()
     
-    def add_series(self, series_name: str, series_type) -> None:
-        pass
+    # def add_series(self, series_name: str, series_type) -> None:
+    #     pass
     
-    def remove_series(self, series_name: str, series_type) -> None:
-        pass
+    # def remove_series(self, series_name: str, series_type) -> None:
+    #     pass
     
-    @abstractmethod
-    def add_datapoint(self, series_name: str, series_data) -> None:
-        pass
+    # @abstractmethod
+    # def add_datapoint(self, series_name: str, series_data) -> None:
+    #     pass
 
-    @abstractmethod
-    def get_series(self, series_name: str):
+    # @abstractmethod
+    # def get_series(self, series_name: str):
+    #     pass
